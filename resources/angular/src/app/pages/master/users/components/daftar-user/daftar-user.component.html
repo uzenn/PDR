@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <table class="table table-hover">
+                    <table datatable [dtOptions]="dtOptions" class="table table-hover" id="dataTable">
                         <thead class="thead-light">
                             <tr>
                                 <td width="80"></td>
@@ -29,8 +29,8 @@
                                 <td width="90"></td>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr *ngFor="let val of listUser; index as i; trackBy:trackByIndex">
+                        <tbody *ngIf="listUsers?.length != 0">
+                            <tr *ngFor="let val of listUsers; index as i; trackBy:trackByIndex">
                                 <td><img src="{{val.fotoUrl}}" class="rounded-circle img-thumb"></td>
                                 <td class="vertical-middle">{{val.nama}}</td>
                                 <td class="vertical-middle">{{val.email}}</td>
@@ -45,7 +45,39 @@
                                 </td>
                             </tr>
                         </tbody>
+                        <tbody *ngIf="listUsers?.length == 0">
+                            <tr>
+                              <td colspan="3" class="no-data-available">No data!</td>
+                            </tr>
+                          </tbody>
                     </table>
+                    <!-- <table class="table table-hover">
+                        <thead class="thead-light">
+                            <tr>
+                                <td width="80"></td>
+                                <td>Nama</td>
+                                <td>Email</td>
+                                <td>Hak Akses</td>
+                                <td width="90"></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let val of listUsers; index as i; trackBy:trackByIndex">
+                                <td><img src="{{val.fotoUrl}}" class="rounded-circle img-thumb"></td>
+                                <td class="vertical-middle">{{val.nama}}</td>
+                                <td class="vertical-middle">{{val.email}}</td>
+                                <td class="vertical-middle">{{val.akses}}</td>
+                                <td class="vertical-middle text-right">
+                                    <a href="javascript: void(0);" class="align-middle mr-2" (click)="updateUser(formUser, val)" placement="left" container="body" ngbTooltip="Ubah">
+                                        <i class="fa fa-edit font-size-14"></i>
+                                    </a>
+                                    <a href="javascript: void(0);" class="align-middle" (click)="deleteUser(val.id)" placement="left" container="body" ngbTooltip="Hapus">
+                                        <i class="fa fa-trash font-size-14"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table> -->
                 </div>
             </div>
         </div>
@@ -60,6 +92,6 @@
         </button>
     </div>
     <div class="modal-body">
-        <user-form [userId]="modelId" (afterSave)="modal.close(); getUser()"></user-form>
+        <user-form [userId]="modelId" (afterSave)="modal.close(); getUsers()"></user-form>
     </div>
 </ng-template>

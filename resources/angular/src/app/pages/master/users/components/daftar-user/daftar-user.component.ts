@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LandaService } from 'src/app/core/services/landa.service';
+import { DataTableDirective } from 'angular-datatables';
 import Swal from 'sweetalert2';
 
 import { UserService } from '../../services/user-service.service';
@@ -12,7 +13,12 @@ import { UserService } from '../../services/user-service.service';
 })
 export class DaftarUserComponent implements OnInit {
 
-    listUser: [];
+    // Datatable
+    @ViewChild(DataTableDirective) dtElement: DataTableDirective;
+    dtInstance: Promise<DataTables.Api>;
+    dtOptions: any;
+
+    listUsers: [] = [];
     titleModal: string;
     modelId: number;
 
@@ -23,21 +29,62 @@ export class DaftarUserComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.getUser();
+        this.getUsers();
     }
 
     trackByIndex(index: number): any {
         return index;
     }
+    
+    // getUser() {
+    //     this.userService.getUsers(this.p, []).subscribe((res: any) => {
+    //         this.listUser = res.data.list;
+    //         this.total = res.data.meta.total;
+    //         this.p = res.data.meta.links.length;
+    //     }, (err: any) => {
+    //         console.log(err);
+    //     });
+    // }
 
-    getUser() {
-        this.userService.getUsers([]).subscribe((res: any) => {
-            this.listUser = res.data.list;
-        }, (err: any) => {
-            console.log(err);
+    reloadDataTable(): void {
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            dtInstance.draw();
         });
     }
 
+    getUsers() {
+        this.dtOptions = {
+            serverSide: true,
+            pageLength: 5,
+            processing: true,
+            ordering: false,
+            searching: false,
+            pagingType: "full_numbers",
+            ajax: (dataTablesParameters: any, callback) => {
+                const page = parseInt(dataTablesParameters.start) / parseInt(dataTablesParameters.length) + 1;
+                const params = {
+                    filter: JSON.stringify({}),
+                    offset: dataTablesParameters.start,
+                    limit: dataTablesParameters.length,
+                };
+                console.log(page);
+                
+                this.userService.getUsers({page}).subscribe((res: any) => {
+                    this.listUsers = res.data.list;
+                    
+                    callback({
+                        recordsTotal: res.data.meta.total,
+                        recordsFiltered: res.data.meta.total,
+                        data: [],
+                    });
+                    console.log(this.listUsers);
+                }, (err: any) => {
+                    console.log(err);
+                });
+            },
+        };
+    }
+    
     createUser(modal) {
         this.titleModal = 'Tambah User';
         this.modelId = 0;
@@ -63,7 +110,7 @@ export class DaftarUserComponent implements OnInit {
             if (result.value) {
                 this.userService.deleteUser(userId).subscribe((res: any) => {
                     this.landaService.alertSuccess('Berhasil', res.message);
-                    this.getUser();
+                    this.getUsers();
                 }, err => {
                     console.log(err);
                 });

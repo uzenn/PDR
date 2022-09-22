@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DataTableDirective } from 'angular-datatables';
 import { LandaService } from 'src/app/core/services/landa.service';
 import Swal from 'sweetalert2';
 import { CustomerService } from '../../services/customer.service';
@@ -11,7 +12,12 @@ import { CustomerService } from '../../services/customer.service';
 })
 export class DaftarCustomerComponent implements OnInit {
 
-    listCustomer: [];
+    // Datatable
+    @ViewChild(DataTableDirective) dtElement: DataTableDirective;
+    dtInstance: Promise<DataTables.Api>;
+    dtOptions: any;
+    
+    listCustomer: [] = [];
     titleModal: string;
     modelId: number;
 
@@ -29,12 +35,46 @@ export class DaftarCustomerComponent implements OnInit {
         return index;
     }
 
+    // getCustomer() {
+    //     this.customerService.getCustomers([]).subscribe((res: any) => {
+    //         this.listCustomer = res.data.list;
+    //     }, (err: any) => {
+    //         console.log(err);
+    //     });
+    // }
+
     getCustomer() {
-        this.customerService.getCustomers([]).subscribe((res: any) => {
-            this.listCustomer = res.data.list;
-        }, (err: any) => {
-            console.log(err);
-        });
+        this.listCustomer = [];
+        this.dtOptions = {
+            serverSide: true,
+            pageLength: 5,
+            processing: true,
+            ordering: false,
+            searching: false,
+            pagingType: "full_numbers",
+            ajax: (dataTablesParameters: any, callback) => {
+                const page = parseInt(dataTablesParameters.start) / parseInt(dataTablesParameters.length) + 1;
+                const params = {
+                    filter: JSON.stringify({}),
+                    offset: dataTablesParameters.start,
+                    limit: dataTablesParameters.length,
+                };
+                console.log(page);
+                
+                this.customerService.getCustomers({page}).subscribe((res: any) => {
+                    this.listCustomer = res.data.list;
+                    
+                    callback({
+                        recordsTotal: res.data.meta.total,
+                        recordsFiltered: res.data.meta.total,
+                        data: [],
+                    });
+                    console.log(this.listCustomer);
+                }, (err: any) => {
+                    console.log(err);
+                });
+            },
+        };
     }
 
     createCustomer(modal) {
@@ -63,6 +103,7 @@ export class DaftarCustomerComponent implements OnInit {
                 this.customerService.deleteCustomer(userId).subscribe((res: any) => {
                     this.landaService.alertSuccess('Berhasil', res.message);
                     this.getCustomer();
+                    $('#dataTable').DataTable().ajax.reload();
                 }, err => {
                     console.log(err);
                 });

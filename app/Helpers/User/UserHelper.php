@@ -67,6 +67,12 @@ class UserHelper implements CrudInterface
     {
         try {
             $payload['password'] = Hash::make($payload['password']);
+
+            if (isset($payload['akses']) && !empty($payload['akses'])) {  
+                $payload['user_roles_id'] = $payload['akses']['id'];
+            } else {
+                unset($payload['akses']);
+            }
             
             /**
              * Jika dalam payload terdapat base64 foto, maka Upload foto ke folder storage/app/upload/fotoUser
@@ -113,6 +119,11 @@ class UserHelper implements CrudInterface
                 $payload['password'] = Hash::make($payload['password']) ?: '';
             } else {
                 unset($payload['password']);
+            }
+            if (isset($payload['akses']) && !empty($payload['akses'])) {  
+                $payload['user_roles_id'] = $payload['akses']['id'];
+            } else {
+                unset($payload['akses']);
             }
             /**
              * Jika dalam payload terdapat base64 foto, maka Upload foto ke folder storage/app/upload/fotoUser

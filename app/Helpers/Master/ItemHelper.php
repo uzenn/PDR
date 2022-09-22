@@ -46,7 +46,7 @@ class ItemHelper implements CrudInterface
      */
     public function getById(int $id): object
     {
-        return $this->itemModel->getById(($id));
+        return $this->itemModel->getById($id);
     }
 
     /**
@@ -67,6 +67,19 @@ class ItemHelper implements CrudInterface
             // Hapus detail dari payload karena tabel m_item tidak memiliki kolom "detail"
             $detailItem = $payload['detail'] ?? [];
             unset($payload['detail']);
+
+            /**
+             * Jika dalam payload terdapat base64 foto, maka Upload foto ke folder storage/app/upload/fotoItem
+             */
+            if (!empty($payload['foto'])) {
+                /**
+                 * Parameter kedua ("gcs") digunakan untuk upload ke Google Cloud Service
+                 * jika mau upload di server local, maka tidak usah pakai parameter kedua
+                 */
+                // $foto = $payload['foto']->store('upload/fotoUser', 'gcs');
+                $foto = $payload['foto']->store('upload/fotoItem');
+                $payload['foto'] = $foto;
+            }
 
             $newItem = $this->itemModel->store($payload);
             
@@ -106,9 +119,24 @@ class ItemHelper implements CrudInterface
             // Hapus detail dari payload karena tabel m_item tidak memiliki kolom "detail"
             $detailItem = $payload['detail'] ?? [];
             unset($payload['detail']);
-        
+
+            /**
+             * Jika dalam payload terdapat base64 foto, maka Upload foto ke folder storage/app/upload/fotoItem
+             */
+            if (!empty($payload['foto'])) {
+                /**
+                 * Parameter kedua ("gcs") digunakan untuk upload ke Google Cloud Service
+                 * jika mau upload di server local, maka tidak usah pakai parameter kedua
+                 */
+                // $foto = $payload['foto']->store('upload/fotoUser', 'gcs');
+                $foto = $payload['foto']->store('upload/fotoItem');
+                $payload['foto'] = $foto;
+            } else {
+                unset($payload['foto']); // Jika foto kosong, hapus dari array agar tidak diupdate
+            }
+
             $updateItem = $this->itemModel->edit($payload, $id);
-            $dataItem = $this->getById($updateItem);
+            $dataItem = $this->getById($id);
 
             // Simpan detail item
             if (!empty($detailItem)) {

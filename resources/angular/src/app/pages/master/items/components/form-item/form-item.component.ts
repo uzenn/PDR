@@ -99,6 +99,18 @@ export class FormItemComponent implements OnInit {
                 this.landaService.alertError('Mohon Maaf', err.error.errors);
             });
         }
+        $('#dataTable').DataTable().ajax.reload();
+    }
+
+    onSelectedImage(event) {
+        if (event.target.files && event.target.files[0]) {
+            var reader = new FileReader();
+            reader.readAsDataURL(event.target.files[0]);
+            reader.onload = (event) => {
+                this.formModel.foto = reader.result.toString();
+                this.formModel.fotoUrl = event.target.result as string;
+            }
+        }
     }
 
     getItem(itemId) {

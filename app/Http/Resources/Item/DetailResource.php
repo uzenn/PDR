@@ -16,7 +16,8 @@ class DetailResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'foto' => $this->foto,
+            'foto' => '',
+            'fotoUrl' => $this->resource->fotoUrl(),
             'nama' => $this->nama,
             'deskripsi' => $this->deskripsi,
             'kategori' => $this->kategori,

@@ -45,6 +45,15 @@
             </div>
         </div>
         <div class="col-md-6">
+            <div class="form-group row d-flex justify-content-center" *ngIf="formModel.fotoUrl">
+                <img src="{{ formModel.fotoUrl }}" class="rounded-circle img-thumb" alt="...">
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4">Foto</label>
+                <div class="col-md-8">
+                    <input type="file" name="foto" class="file-upload" placeholder="Foto Item" (change)="onSelectedImage($event)">
+                </div>
+            </div>
             <div class="form-group row">
                 <label class="col-md-4 required">Status</label>
                 <div class="col-md-8">

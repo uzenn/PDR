@@ -58,6 +58,20 @@ class ItemModel extends Model implements ModelInterface
         return $this->hasMany(ItemDetModel::class, 'm_item_id', 'id');
     }
 
+    /**
+     * Menampilkan foto item dalam bentuk URL
+     *
+     * @return string
+     */
+    public function fotoUrl() {
+        if(empty($this->foto)) {
+            return asset('assets/img/no-image.png');
+        } 
+
+        return asset('storage/'.$this->foto);
+        // return $this->foto;
+    }
+
     public function getAll(array $filter, int $itemPerPage = 0, string $sort = ''): object
     {
         $dataItem = $this->query();

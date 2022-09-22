@@ -62,6 +62,7 @@ export class FormCustomerComponent implements OnInit {
                 this.landaService.alertError('Mohon Maaf', err.error.errors);
             });
         }
+        $('#dataTable').DataTable().ajax.reload();
     }
 
     getCustomer(customerId) {

@@ -29,6 +29,7 @@ class CustomerRequest extends FormRequest
         return [
             'nama' => 'required|max:100',
             'email' => "required|email|unique:m_customer,email,{$this->id}", // Validasi email unik berdasarkan data di tabel m_customer
+            'is_verified' => "required" 
         ];
     }
 

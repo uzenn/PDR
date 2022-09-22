@@ -29,6 +29,7 @@ export class DaftarUserComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
+        this.listUsers = [];
         this.getUsers();
     }
 
@@ -53,6 +54,7 @@ export class DaftarUserComponent implements OnInit {
     }
 
     getUsers() {
+        this.listUsers = [];
         this.dtOptions = {
             serverSide: true,
             pageLength: 5,
@@ -110,7 +112,8 @@ export class DaftarUserComponent implements OnInit {
             if (result.value) {
                 this.userService.deleteUser(userId).subscribe((res: any) => {
                     this.landaService.alertSuccess('Berhasil', res.message);
-                    this.getUsers();
+                    // this.getUsers();
+                    $('#dataTable').DataTable().ajax.reload();
                 }, err => {
                     console.log(err);
                 });

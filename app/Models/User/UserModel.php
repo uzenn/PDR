@@ -53,6 +53,7 @@ class UserModel extends Authenticatable implements JWTSubject, ModelInterface
 
     protected $fillable = [
         'nama',
+        'user_roles_id',
         'email',
         'password',
         'foto'

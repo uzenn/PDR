@@ -29,8 +29,7 @@ export class DaftarUserComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.listUsers = [];
-        this.getUsers();
+        this.getDtOptions();
     }
 
     trackByIndex(index: number): any {
@@ -47,14 +46,7 @@ export class DaftarUserComponent implements OnInit {
     //     });
     // }
 
-    reloadDataTable(): void {
-        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-            dtInstance.draw();
-        });
-    }
-
-    getUsers() {
-        this.listUsers = [];
+    getDtOptions() {
         this.dtOptions = {
             serverSide: true,
             pageLength: 5,
@@ -85,6 +77,17 @@ export class DaftarUserComponent implements OnInit {
                 });
             },
         };
+    }
+
+    reloadDataTable(): void {
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            dtInstance.draw();
+        });
+    }
+
+    getUsers() {
+        this.getDtOptions();
+        this.reloadDataTable();
     }
     
     createUser(modal) {

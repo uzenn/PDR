@@ -78,7 +78,7 @@ export class FormUserComponent implements OnInit {
                 this.landaService.alertError('Mohon Maaf', err.error.errors);
             });
         }
-        $('#dataTable').DataTable().ajax.reload();
+        // $('#dataTable').DataTable().ajax.reload();
     }
 
     getRole() {

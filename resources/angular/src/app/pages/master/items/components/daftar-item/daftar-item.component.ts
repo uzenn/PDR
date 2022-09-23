@@ -30,7 +30,7 @@ export class DaftarItemComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.getItems();
+        this.getDtOptions();
     }
 
     trackByIndex(index: number): any {
@@ -45,8 +45,7 @@ export class DaftarItemComponent implements OnInit {
     //     });
     // }
 
-    getItems() {
-        this.listItems = [];
+    getDtOptions() {
         this.dtOptions = {
             serverSide: true,
             pageLength: 5,
@@ -77,6 +76,17 @@ export class DaftarItemComponent implements OnInit {
                 });
             },
         };
+    }
+
+    reloadDataTable(): void {
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            dtInstance.draw();
+        });
+    }
+
+    getItems() {
+        this.getDtOptions();
+        this.reloadDataTable();
     }
 
     showForm(show) {

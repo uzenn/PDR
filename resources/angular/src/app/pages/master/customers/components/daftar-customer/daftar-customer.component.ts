@@ -28,7 +28,7 @@ export class DaftarCustomerComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.getCustomer();
+        this.getDtOptions();
     }
 
     trackByIndex(index: number): any {
@@ -43,8 +43,7 @@ export class DaftarCustomerComponent implements OnInit {
     //     });
     // }
 
-    getCustomer() {
-        this.listCustomer = [];
+    getDtOptions() {
         this.dtOptions = {
             serverSide: true,
             pageLength: 5,
@@ -75,6 +74,17 @@ export class DaftarCustomerComponent implements OnInit {
                 });
             },
         };
+    }
+
+    reloadDataTable(): void {
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            dtInstance.draw();
+        });
+    }
+
+    getCustomer() {
+        this.getDtOptions();
+        this.reloadDataTable();
     }
 
     createCustomer(modal) {

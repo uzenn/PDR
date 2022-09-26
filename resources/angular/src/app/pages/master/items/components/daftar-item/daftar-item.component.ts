@@ -46,6 +46,7 @@ export class DaftarItemComponent implements OnInit {
     // }
 
     getDtOptions() {
+        this.listItems = [];
         this.dtOptions = {
             serverSide: true,
             pageLength: 5,
@@ -118,8 +119,8 @@ export class DaftarItemComponent implements OnInit {
             if (result.value) {
                 this.itemService.deleteItem(userId).subscribe((res: any) => {
                     this.landaService.alertSuccess('Berhasil', res.message);
-                    // this.getItems();
-                    $('#dataTable').DataTable().ajax.reload();
+                    this.getItems();
+                    // $('#dataTable').DataTable().ajax.reload();
                 }, err => {
                     console.log(err);
                 });

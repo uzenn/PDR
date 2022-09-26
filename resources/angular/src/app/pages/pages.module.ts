@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
@@ -10,6 +10,7 @@ import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { PagesRoutingModule } from './pages-routing.module';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     suppressScrollX: true,
@@ -17,13 +18,14 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 };
 
 @NgModule({
-    declarations: [DashboardComponent],
+    declarations: [DashboardComponent, ProfileComponent],
     imports: [
         ReactiveFormsModule,
         NgbAlertModule,
         CommonModule,
         PagesRoutingModule,
         PerfectScrollbarModule,
+        FormsModule
     ],
     providers: [
         {

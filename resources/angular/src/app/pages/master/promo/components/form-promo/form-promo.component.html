@@ -1,0 +1,72 @@
+<form>
+    <div class="form-group row d-flex justify-content-center" *ngIf="formModel.fotoUrl">
+        <img src="{{ formModel.fotoUrl }}" class="rounded-circle img-thumb" alt="...">
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4">Foto</label>
+        <div class="col-md-8">
+            <input type="file" name="foto" class="file-upload" placeholder="Foto Promo" (change)="onSelectedImage($event)">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4 required">Nama</label>
+        <div class="col-md-8">
+            <input [(ngModel)]="formModel.nama" type="text" name="nama" class="form-control" placeholder="Nama Promo">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4 required">Type</label>
+        <div class="col-md-8">
+            <div class="btn-group" role="group" ngbRadioGroup name="type" [(ngModel)]="formModel.type">
+                <label ngbButtonLabel class="btn-info">
+                    <input ngbButton type="radio" class="btn-check" value="voucher"> Voucher
+                </label>
+                <label ngbButtonLabel class="btn-info">
+                    <input ngbButton type="radio" class="btn-check" value="diskon"> Diskon
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row" *ngIf="formModel.type == 'diskon'">
+        <label class="col-md-4 required">Diskon</label>
+        <div class="col-md-8">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <input [(ngModel)]="formModel.diskon" type="number" name="diskon" class="form-control"
+                        placeholder="Diskon" min="0">
+                    <span class="input-group-text">%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row" *ngIf="formModel.type == 'voucher'">
+        <label class="col-md-4 required">Nominal</label>
+        <div class="col-md-8">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Rp.</span>
+                </div>
+                <input [(ngModel)]="formModel.nominal" type="number" name="nominal" class="form-control"
+                    placeholder="Nominal" min="0">
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4 required">Kadaluarsa</label>
+        <div class="col-md-8">
+            <input [(ngModel)]="formModel.kadaluarsa" type="number" name="kadaluarsa" class="form-control" placeholder="Kadaluarsa" min="1">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4 required">Syarat Ketentuan</label>
+        <div class="col-md-8">
+            <textarea [(ngModel)]="formModel.syarat_ketentuan" class="form-control" name="syarat_ketentuan" placeholder="Syarat Ketentuan"></textarea>
+        </div>
+      </div>
+    <div class="form-group row">
+        <label class="col-md-4"></label>
+        <div class="col-md-8">
+            <button type="submit" class="btn btn-primary" (click)="save()">Simpan</button>
+        </div>
+    </div>
+</form>

@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\User\RoleController;
 use App\Http\Controllers\Api\User\UserController;
 use App\Http\Controllers\Api\Master\CustomerController;
 use App\Http\Controllers\Api\Master\ItemController;
+use App\Http\Controllers\Api\Master\PromoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -54,6 +55,15 @@ Route::prefix('v1')->group(function () {
     Route::post('/items', [ItemController::class, 'store'])->middleware(['web', 'auth.api:item_create']);
     Route::put('/items', [ItemController::class, 'update'])->middleware(['web', 'auth.api:item_update']);
     Route::delete('/items/{id}', [ItemController::class, 'destroy'])->middleware(['web', 'auth.api:item_delete']);
+
+    /**
+     * CRUD promo
+     */
+    Route::get('/promo', [PromoController::class, 'index'])->middleware(['web', 'auth.api:promo_view']);
+    Route::get('/promo/{id}', [PromoController::class, 'show'])->middleware(['web', 'auth.api:promo_view']);
+    Route::post('/promo', [PromoController::class, 'store'])->middleware(['web', 'auth.api:promo_create']);
+    Route::put('/promo', [PromoController::class, 'update'])->middleware(['web', 'auth.api:promo_update']);
+    Route::delete('/promo/{id}', [PromoController::class, 'destroy'])->middleware(['web', 'auth.api:promo_delete']);
 
     /**
      * Route khusus authentifikasi

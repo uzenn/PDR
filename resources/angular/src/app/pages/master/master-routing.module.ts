@@ -5,13 +5,15 @@ import { DaftarItemComponent } from './items/components/daftar-item/daftar-item.
 import { DaftarPromoComponent } from './promo/components/daftar-promo/daftar-promo.component';
 import { DaftarRolesComponent } from './roles/components/daftar-roles/daftar-roles.component';
 import { DaftarUserComponent } from './users/components/daftar-user/daftar-user.component';
+import { DaftarVoucherComponent } from './voucher/components/daftar-voucher/daftar-voucher.component';
 
 const routes: Routes = [
     { path: 'users', component: DaftarUserComponent },
     { path: 'roles', component: DaftarRolesComponent },
     { path: 'customers', component: DaftarCustomerComponent },
     { path: 'items', component: DaftarItemComponent },
-    { path: 'promo', component: DaftarPromoComponent }
+    { path: 'promo', component: DaftarPromoComponent },
+    { path: 'voucher', component: DaftarVoucherComponent }
 ];
 
 @NgModule({

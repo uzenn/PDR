@@ -1,0 +1,69 @@
+<form>
+    <div class="form-group row d-flex align-items-center">
+        <label class="col-md-4">Foto Voucher</label>
+        <div class="col-md-8 d-flex justify-content-center" *ngIf="formModel.voucher.fotoUrl">
+            <img src="{{ formModel.voucher.fotoUrl }}" class="img-thumb" alt="...">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4 required">Voucher</label>
+        <div class="col-md-8">
+            <!-- <ng-select [(ngModel)]="formModel.voucher" [items]="listVoucher" bindLabel="nama" placeholder="Pilih Voucher" name="voucher" appendTo="body"></ng-select> -->
+            <ng-select [(ngModel)]="formModel.voucher" (change)="onSelectedVoucher($event)" [items]="listVoucher" bindLabel="nama" placeholder="Pilih Voucher" name="voucher" appendTo="body"></ng-select>
+        </div>
+    </div>
+    <div *ngIf="formModel.voucher.kadaluarsa">
+        <div class="form-group row">
+            <label class="col-md-4">Kadaluarsa</label>
+            <div class="col-md-8">
+                <input [(ngModel)]="formModel.voucher.kadaluarsa" type="text" disabled name="kadaluarsa" class="form-control" placeholder="Kadaluarsa">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-4">Periode</label>
+            <div class="col-md-4">
+                <input [(ngModel)]="formModel.periode_mulai" (change)="onSelectedDate($event)" type="date" name="periode_mulai" class="form-control" placeholder="Periode Mulai">
+            </div>
+            <div class="col-md-4">
+                <input [(ngModel)]="formModel.periode_selesai" type="date" disabled name="periode_selesai" class="form-control" placeholder="Periode Selesai">
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4 required">Nama Customer</label>
+        <div class="col-md-8">
+            <ng-select [(ngModel)]="formModel.user" [items]="listCustomer" bindLabel="nama" placeholder="Pilih Customer" name="customer" appendTo="body"></ng-select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4">Jumlah</label>
+        <div class="col-md-8">
+            <input [(ngModel)]="formModel.jumlah" type="number" name="jumlah" class="form-control" placeholder="Jumlah">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4">Catatan</label>
+        <div class="col-md-8">
+            <textarea [(ngModel)]="formModel.catatan" class="form-control" name="catatan" placeholder="Catatan" rows="5"></textarea>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4 required">Status</label>
+        <div class="col-md-8">
+            <div class="btn-group" role="group" ngbRadioGroup name="status" [(ngModel)]="formModel.status">
+                <label ngbButtonLabel class="btn-info">
+                    <input ngbButton type="radio" class="btn-check" value="1"> Aktif
+                </label>
+                <label ngbButtonLabel class="btn-info">
+                    <input ngbButton type="radio" class="btn-check" value="0"> Tidak Aktif
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4"></label>
+        <div class="col-md-8">
+            <button type="submit" class="btn btn-primary" (click)="save()">Simpan</button>
+        </div>
+    </div>
+</form>

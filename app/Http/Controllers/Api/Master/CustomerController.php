@@ -30,6 +30,14 @@ class CustomerController extends Controller
         return response()->success(new CustomerCollection($listCustomer));
     }
 
+    public function customer(Request $request)
+    {
+        $filter = ['nama' => $request->nama ?? ''];
+        $listCustomer = $this->customer->getAll($filter, 0, $request->sort ?? '');
+
+        return response()->success(new CustomerCollection($listCustomer));
+    }
+
     /**
      * Store a newly created resource in storage.
      *

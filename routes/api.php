@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\User\UserController;
 use App\Http\Controllers\Api\Master\CustomerController;
 use App\Http\Controllers\Api\Master\ItemController;
 use App\Http\Controllers\Api\Master\PromoController;
+use App\Http\Controllers\Api\Master\VoucherController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,6 +43,7 @@ Route::prefix('v1')->group(function () {
      * CRUD customer
      */
     Route::get('/customers', [CustomerController::class, 'index'])->middleware(['web', 'auth.api:customer_view']);
+    Route::get('/customers-all', [CustomerController::class, 'customer'])->middleware(['web', 'auth.api:customer_view']);
     Route::get('/customers/{id}', [CustomerController::class, 'show'])->middleware(['web', 'auth.api:customer_view']);
     Route::post('/customers', [CustomerController::class, 'store'])->middleware(['web', 'auth.api:customer_create']);
     Route::put('/customers', [CustomerController::class, 'update'])->middleware(['web', 'auth.api:customer_update']);
@@ -60,10 +62,23 @@ Route::prefix('v1')->group(function () {
      * CRUD promo
      */
     Route::get('/promo', [PromoController::class, 'index'])->middleware(['web', 'auth.api:promo_view']);
+    // Voucher
+    Route::get('/promo/voucher', [PromoController::class, 'voucher'])->middleware(['web', 'auth.api:promo_view']);
+    // Diskon
+    Route::get('/promo/diskon', [PromoController::class, 'diskon'])->middleware(['web', 'auth.api:promo_view']);
     Route::get('/promo/{id}', [PromoController::class, 'show'])->middleware(['web', 'auth.api:promo_view']);
     Route::post('/promo', [PromoController::class, 'store'])->middleware(['web', 'auth.api:promo_create']);
     Route::put('/promo', [PromoController::class, 'update'])->middleware(['web', 'auth.api:promo_update']);
     Route::delete('/promo/{id}', [PromoController::class, 'destroy'])->middleware(['web', 'auth.api:promo_delete']);
+
+    /**
+     * CRUD voucher
+     */
+    Route::get('/voucher', [VoucherController::class, 'index'])->middleware(['web', 'auth.api:voucher_view']);
+    Route::get('/voucher/{id}', [VoucherController::class, 'show'])->middleware(['web', 'auth.api:voucher_view']);
+    Route::post('/voucher', [VoucherController::class, 'store'])->middleware(['web', 'auth.api:voucher_create']);
+    Route::put('/voucher', [VoucherController::class, 'update'])->middleware(['web', 'auth.api:voucher_update']);
+    Route::delete('/voucher/{id}', [VoucherController::class, 'destroy'])->middleware(['web', 'auth.api:voucher_delete']);
 
     /**
      * Route khusus authentifikasi

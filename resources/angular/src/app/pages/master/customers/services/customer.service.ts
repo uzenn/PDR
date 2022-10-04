@@ -12,6 +12,10 @@ export class CustomerService {
         return this.landaService.DataGet('/v1/customers', arrParameter);
     }
 
+    getCustomersAll(arrParameter) {
+        return this.landaService.DataGet('/v1/customers-all', arrParameter);
+    }
+
     getCustomerById(customerId) {
         return this.landaService.DataGet('/v1/customers/' + customerId);
     }

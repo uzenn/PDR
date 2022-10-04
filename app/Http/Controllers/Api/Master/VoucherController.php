@@ -3,20 +3,20 @@
 namespace App\Http\Controllers\Api\Master;
 
 use App\Http\Controllers\Controller;
-use App\Helpers\Master\PromoHelper;
-use App\Http\Resources\Promo\PromoCollection;
-use App\Http\Requests\Promo\CreateRequest;
-use App\Http\Requests\Promo\UpdateRequest;
-use App\Http\Resources\Promo\PromoResource;
+use App\Helpers\Master\VoucherHelper;
+use App\Http\Requests\Voucher\CreateRequest;
+use App\Http\Requests\Voucher\UpdateRequest;
+use App\Http\Resources\Voucher\VoucherCollection;
+use App\Http\Resources\Voucher\VoucherResource;
 use Illuminate\Http\Request;
 
-class PromoController extends Controller
+class VoucherController extends Controller
 {
-    private $promo;
+    private $voucher;
 
     public function __construct()
     {
-        $this->promo = new PromoHelper();
+        $this->voucher = new VoucherHelper();
     }
 
     /**
@@ -30,25 +30,9 @@ class PromoController extends Controller
             'nama' => $request->nama ?? '',
             'type' => $request->type ?? '',
         ];
-        $promo = $this->promo->getAll($filter, 5, $request->sort ?? '');
+        $voucher = $this->voucher->getAll($filter, 5, $request->sort ?? '');
 
-        return response()->success(new PromoCollection($promo));
-    }
-
-    public function voucher(Request $request)
-    {
-        $filter = ['type' => $request->type ?? 'voucher'];
-        $promo = $this->promo->getAll($filter, 0, $request->sort ?? '');
-
-        return response()->success(new PromoCollection($promo));
-    }
-
-    public function diskon(Request $request)
-    {
-        $filter = ['type' => $request->type ?? 'diskon'];
-        $promo = $this->promo->getAll($filter, 0, $request->sort ?? '');
-
-        return response()->success(new PromoCollection($promo));
+        return response()->success(new VoucherCollection($voucher));
     }
 
     /**
@@ -77,14 +61,14 @@ class PromoController extends Controller
             return response()->failed($request->validator->errors(), 422);
         }
         
-        $dataInput = $request->only(['nama', 'type', 'diskon', 'nominal', 'kadaluarsa', 'syarat_ketentuan', 'foto']);
-        $dataPromo = $this->promo->create($dataInput);
+        $dataInput = $request->only(['voucher', 'user', 'periode_mulai', 'periode_selesai', 'status', 'catatan', 'jumlah']);
+        $dataVoucher = $this->voucher->create($dataInput);
         
-        if (!$dataPromo['status']) {
-            return response()->failed($dataPromo['error'], 422);
+        if (!$dataVoucher['status']) {
+            return response()->failed($dataVoucher['error'], 422);
         }
         
-        return response()->success([], 'Data promo berhasil disimpan');
+        return response()->success([], 'Data voucher berhasil disimpan');
     }
 
     /**
@@ -95,13 +79,13 @@ class PromoController extends Controller
      */
     public function show($id)
     {
-        $dataPromo = $this->promo->getById($id);
+        $dataVoucher = $this->voucher->getById($id);
 
-        if (empty($dataPromo)) {
-            return response()->failed(['Data promo tidak ditemukan']);
+        if (empty($dataVoucher)) {
+            return response()->failed(['Data voucher tidak ditemukan']);
         }
 
-        return response()->success(new PromoResource($dataPromo));
+        return response()->success(new VoucherResource($dataVoucher));
     }
 
     /**
@@ -132,14 +116,14 @@ class PromoController extends Controller
             return response()->failed($request->validator->errors());
         }
 
-        $dataInput = $request->only(['id_promo', 'nama', 'type', 'diskon', 'nominal', 'kadaluarsa', 'syarat_ketentuan', 'foto']);
-        $dataPromo = $this->promo->update($dataInput, $dataInput['id_promo']);
+        $dataInput = $request->only(['id_voucher', 'voucher', 'user', 'periode_mulai', 'periode_selesai', 'status', 'catatan', 'jumlah']);
+        $dataVoucher = $this->voucher->update($dataInput, $dataInput['id_voucher']);
         
-        if (!$dataPromo['status']) {
-            return response()->failed($dataPromo['error']);
+        if (!$dataVoucher['status']) {
+            return response()->failed($dataVoucher['error']);
         }
 
-        return response()->success(new PromoResource($dataPromo['data']), 'Data promo berhasil disimpan');
+        return response()->success(new VoucherResource($dataVoucher['data']), 'Data voucher berhasil disimpan');
     }
 
     /**
@@ -150,12 +134,12 @@ class PromoController extends Controller
      */
     public function destroy($id)
     {
-        $dataPromo = $this->promo->delete($id);
+        $dataVoucher = $this->voucher->delete($id);
 
-        if (!$dataPromo) {
-            return response()->failed(['Mohon maaf data promo tidak ditemukan']);
+        if (!$dataVoucher) {
+            return response()->failed(['Mohon maaf data voucher tidak ditemukan']);
         }
 
-        return response()->success($dataPromo);
+        return response()->success($dataVoucher);
     }
 }

@@ -12,6 +12,10 @@ export class PromoService {
         return this.landaService.DataGet('/v1/promo', arrParameter);
     }
 
+    getPromoVoucher(arrParameter) {
+        return this.landaService.DataGet('/v1/promo/voucher', arrParameter);
+    }
+
     getPromoById(promoId) {
         return this.landaService.DataGet('/v1/promo/' + promoId);
     }

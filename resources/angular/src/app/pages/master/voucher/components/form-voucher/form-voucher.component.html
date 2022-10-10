@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-4">Periode</label>
+            <label class="col-md-4 required">Periode</label>
             <div class="col-md-4">
                 <input [(ngModel)]="formModel.periode_mulai" (change)="onSelectedDate($event)" type="date" name="periode_mulai" class="form-control" placeholder="Periode Mulai">
             </div>
@@ -36,13 +36,13 @@
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-md-4">Jumlah</label>
+        <label class="col-md-4 required">Jumlah</label>
         <div class="col-md-8">
             <input [(ngModel)]="formModel.jumlah" type="number" name="jumlah" class="form-control" placeholder="Jumlah">
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-md-4">Catatan</label>
+        <label class="col-md-4 required">Catatan</label>
         <div class="col-md-8">
             <textarea [(ngModel)]="formModel.catatan" class="form-control" name="catatan" placeholder="Catatan" rows="5"></textarea>
         </div>

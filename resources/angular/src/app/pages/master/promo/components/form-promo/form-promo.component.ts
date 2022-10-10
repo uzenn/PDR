@@ -81,6 +81,7 @@ export class FormPromoComponent implements OnInit {
     getPromo(promoId) {
         this.promoService.getPromoById(promoId).subscribe((res: any) => {
             this.formModel = res.data;
+            this.formModel.diskon *= 100;
         }, err => {
             console.log(err);
         });

@@ -1,0 +1,210 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h1>Laporan Penjualan</h1>
+                    <div
+                        class="d-flex justify-content-start align-items-center"
+                    >
+                        <div class="col-6">
+                            <div
+                                class="p-2"
+                                style="/*padding-bottom: 10px!important;*/"
+                            >
+                                <form
+                                    class="form-horizontal ng-untouched ng-pristine ng-invalid"
+                                >
+                                    <div
+                                        class="form-group mb-3"
+                                        style="width: 50%"
+                                    >
+                                        <label
+                                            class="form-label f-label"
+                                            for="email"
+                                            >Periode</label
+                                        >
+                                        <div
+                                            class="input-group"
+                                            style="width: 77%"
+                                        >
+                                            <input
+                                                class="form-control"
+                                                type="month"
+                                                (change)="
+                                                    onSelectedMonth($event)
+                                                "
+                                            />
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div
+                            class="col-6 d-flex justify-content-end"
+                            style="border-bottom-color: #2e2e2e"
+                        >
+                            <div class="form-group mb-3">
+                                <label class="form-label f-label" for="email"
+                                    >Customer</label
+                                >
+                                <div class="input-group">
+                                    <div
+                                        class="input-group-text"
+                                        style="padding: 0px"
+                                    >
+                                        <ng-select
+                                            [items]="listCustomer"
+                                            bindLabel="nama"
+                                            placeholder6="Pilih Customer"
+                                            name="customer"
+                                            appendTo="body"
+                                            (change)="
+                                                onSelectedCustomer($event)
+                                            "
+                                        ></ng-select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table
+                            class="table table-hover table-bordered table-responsive"
+                        >
+                            <thead class="thead-light text-white">
+                                <tr class="bg-primary">
+                                    <td rowspan="2" class="text-center">No</td>
+                                    <td rowspan="2" class="text-center">
+                                        No Struk
+                                    </td>
+                                    <td rowspan="2" class="text-center">
+                                        Customer
+                                    </td>
+                                    <td rowspan="2" class="text-center">
+                                        Tanggal
+                                    </td>
+                                    <td rowspan="2" class="text-center">
+                                        Menu
+                                    </td>
+                                    <td rowspan="2" class="text-center">
+                                        Jumlah
+                                    </td>
+                                    <td rowspan="2" class="text-center">
+                                        Harga
+                                    </td>
+                                    <td rowspan="2" class="text-center">
+                                        Total
+                                    </td>
+                                    <td colspan="2" class="text-center">
+                                        Promo
+                                    </td>
+                                    <td rowspan="2" class="text-center">
+                                        Total Bayar
+                                    </td>
+                                </tr>
+                                <tr class="bg-primary">
+                                    <td class="vertical-middle text-center">
+                                        Diskon
+                                    </td>
+                                    <td class="vertical-middle text-center">
+                                        Voucher
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody
+                            *ngFor="let rekap of listLaporanPenjualan; index as i"
+                        >
+                            <tr>
+                                <td
+                                    class="text-center"
+                                    [rowSpan]="rekap.menu.length"
+                                >
+                                    {{ i + 1 }}
+                                </td>
+                                <td
+                                    class="text-center"
+                                    [rowSpan]="rekap.menu.length"
+                                >
+                                    {{ rekap.no_struk }}
+                                </td>
+                                <td
+                                    class="text-center"
+                                    [rowSpan]="rekap.menu.length"
+                                >
+                                    {{ rekap.nama_user }}
+                                </td>
+                                <td
+                                    class="text-center"
+                                    [rowSpan]="rekap.menu.length"
+                                >
+                                    {{ rekap.tanggal | date: "dd-MM-yyyy" }}
+                                </td>
+                                <td class="text-center">
+                                    {{ rekap.menu[0].nama }}
+                                </td>
+                                <td class="text-center">
+                                    {{ rekap.menu[0].jumlah }}
+                                </td>
+                                <td class="text-center">
+                                    {{ rekap.menu[0].harga }}
+                                </td>
+                                <td class="text-center">
+                                    {{ rekap.menu[0].total }}
+                                </td>
+                                <td
+                                    class="text-center"
+                                    [rowSpan]="rekap.menu.length"
+                                >
+                                    {{
+                                        rekap.potongan == 0 ||
+                                        rekap.potongan == null
+                                            ? ""
+                                            : (rekap.potongan
+                                              | currency: "Rp. ")
+                                    }}{{
+                                        rekap.diskon == 0 ||
+                                        rekap.diskon == null
+                                            ? ""
+                                            : "(" + rekap.diskon + "%)"
+                                    }}
+                                </td>
+                                <td
+                                    class="text-center"
+                                    [rowSpan]="rekap.menu.length"
+                                >
+                                    {{
+                                        rekap.voucher == 0 ||
+                                        rekap.voucher == null
+                                            ? ""
+                                            : (rekap.voucher | currency: "Rp. ")
+                                    }}
+                                </td>
+                                <td
+                                    class="text-center"
+                                    [rowSpan]="rekap.menu.length"
+                                >
+                                    {{ rekap.total_bayar }}
+                                </td>
+                            </tr>
+                            <tr
+                                *ngFor="
+                                    let item of rekap.menu | slice: 1;
+                                    let i = index
+                                "
+                            >
+                                <td class="text-center">{{ item.nama }}</td>
+                                <td class="text-center">{{ item.jumlah }}</td>
+                                <td class="text-center">{{ item.harga }}</td>
+                                <td class="text-center">{{ item.total }}</td>
+                            </tr>
+                        </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

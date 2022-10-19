@@ -1,0 +1,208 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <!-- <div role="group" class="btn-group btn-group-sm btn-group-justified blocks">
+                        <button type="button" class="btn btn-sm btn-primary mr-2" (click)="createVoucher(formVoucher)">
+                            <i class="fa fa-plus font-size-14 align-middle mr-1"></i> Tambah Voucher 
+                        </button>
+                    </div> -->
+                    <h1>Rekap Penjualan Menu</h1>
+                    <div class="d-flex justify-content-between">
+                        <div class="col-8">
+                            <div
+                                class="p-2"
+                                style="/*padding-bottom: 10px!important;*/"
+                            >
+                                <form
+                                    class="form-horizontal ng-untouched ng-pristine ng-invalid"
+                                >
+                                    <div
+                                        class="form-group mb-3"
+                                        style="width: 50%"
+                                    >
+                                        <label
+                                            class="form-label f-label"
+                                            for="email"
+                                            >Periode</label
+                                        >
+                                        <div
+                                            class="input-group"
+                                            style="width: 77%"
+                                        >
+                                            <input
+                                                class="form-control"
+                                                type="month"
+                                                (change)="
+                                                    onSelectedMonth($event)
+                                                "
+                                            />
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div
+                            class="col-4 text-end d-lg-flex d-xl-flex d-xxl-flex justify-content-lg-end justify-content-xl-end justify-content-xxl-end"
+                            style="border-bottom-color: #2e2e2e"
+                        >
+                            <div class="form-group mb-3">
+                                <label class="form-label f-label" for="email"
+                                    >Kategori</label
+                                >
+                                <div class="input-group">
+                                    <div class="input-group-text" style="padding: 0px"
+                                    >
+                                        <div
+                                            class="btn-group btn-group-toggle"
+                                            role="group"
+                                            name="kategori"
+                                            ngbRadioGroup
+                                            [(ngModel)]="filter.kategori"
+                                        >
+                                            <label
+                                                ngbButtonLabel
+                                                class="btn-primary"
+                                            >
+                                                <input
+                                                    ngbButton
+                                                    type="radio"
+                                                    class="btn-check"
+                                                    value="all"
+                                                    (click)="
+                                                        showByKategori('all')
+                                                    "
+                                                />
+                                                All
+                                            </label>
+                                            <label
+                                                ngbButtonLabel
+                                                class="btn-primary"
+                                            >
+                                                <input
+                                                    ngbButton
+                                                    type="radio"
+                                                    class="btn-check"
+                                                    value="food"
+                                                    (click)="
+                                                        showByKategori('food')
+                                                    "
+                                                />
+                                                Makanan
+                                            </label>
+                                            <label
+                                                ngbButtonLabel
+                                                class="btn-primary"
+                                            >
+                                                <input
+                                                    ngbButton
+                                                    type="radio"
+                                                    class="btn-check"
+                                                    value="drink"
+                                                    (click)="
+                                                        showByKategori('drink')
+                                                    "
+                                                />
+                                                Minuman
+                                            </label>
+                                            <label
+                                                ngbButtonLabel
+                                                class="btn-primary"
+                                            >
+                                                <input
+                                                    ngbButton
+                                                    type="radio"
+                                                    class="btn-check"
+                                                    value="snack"
+                                                    (click)="
+                                                        showByKategori('snack')
+                                                    "
+                                                />
+                                                Snack
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered table-responsive">
+                            <thead class="thead-light text-white">
+                                <tr class="bg-primary">
+                                    <td rowspan="2" class="text-center">No</td>
+                                    <td rowspan="2" class="text-center">Menu</td>
+                                    <td *ngIf="month && year" [colSpan]="days" class="text-center">Periode: {{ month + " " + year}} </td>
+                                    <td rowspan="2" class="text-center">Total</td>
+                                </tr>
+                                <tr class="bg-primary">
+                                    <td class="vertical-middle text-center" *ngFor="let day of listDays">
+                                        {{ day }}
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let total of listGrandTotal; index as i">
+                                    <td colspan="2" style="font-weight: bold">
+                                        {{ total.nama }}
+                                    </td>
+                                    <td class="vertical-middle" *ngFor="let day of listDays; index as k" style="font-weight: bold">
+                                        {{
+                                            total["tgl" + (k + 1)] == 0 ? " " : (total["tgl" + (k + 1)] | currency: "Rp. ")
+                                        }}
+                                    </td>
+                                    <td class="vertical-middle">
+                                        {{
+                                            total.total == 0 ? " " : (total.total | currency: "Rp. ")
+                                        }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody *ngFor=" let menus of listPenjualanMenu; index as i">
+                                <tr>
+                                    <td [colSpan]="days + 3" class="thead-light">
+                                        {{
+                                            menus[0] ? menus[0].kategori.toUpperCase() : ""
+                                        }}
+                                    </td>
+                                </tr>
+                                <tr *ngFor=" let menu of menus | slice: 0:menus.length - 1; index as j">
+                                    <td>{{ j + 1 }}</td>
+                                    <td class="vertical-middle">
+                                        {{ menu.nama }}
+                                    </td>
+                                    <td class="vertical-middle" *ngFor="let day of listDays; index as k">
+                                        {{
+                                            menu["tgl" + (k + 1)] == 0 ? " " : (menu["tgl" + (k + 1)] | currency: "Rp. ")
+                                        }}
+                                    </td>
+                                    <td class="vertical-middle">
+                                        {{
+                                            menu.total == 0 ? " " : (menu.total | currency: "Rp. ")
+                                        }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold" [colSpan]="days + 2" >
+                                        {{ menus[menus.length - 1].nama }}
+                                        {{
+                                            menus[0] ? menus[0].kategori.toUpperCase() : ""
+                                        }}
+                                    </td>
+                                    <td>
+                                        {{
+                                            menus[menus.length - 1].total == 0 ? " " : (menus[menus.length - 1].total | currency: "Rp. ")
+                                        }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

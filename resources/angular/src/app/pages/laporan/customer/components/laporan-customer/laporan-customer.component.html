@@ -1,0 +1,177 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h1>Rekap Penjualan Customer</h1>
+                    <div
+                        class="d-flex justify-content-start align-items-center"
+                    >
+                        <div class="col-6">
+                            <div
+                                class="p-2"
+                                style="/*padding-bottom: 10px!important;*/"
+                            >
+                                <form
+                                    class="form-horizontal ng-untouched ng-pristine ng-invalid"
+                                >
+                                    <div
+                                        class="form-group mb-3"
+                                        style="width: 50%"
+                                    >
+                                        <label
+                                            class="form-label f-label"
+                                            for="email"
+                                            >Periode</label
+                                        >
+                                        <div
+                                            class="input-group"
+                                            style="width: 77%"
+                                        >
+                                            <input
+                                                class="form-control"
+                                                type="month"
+                                                (change)="
+                                                    onSelectedMonth($event)
+                                                "
+                                            />
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div
+                            class="col-6 d-flex justify-content-end"
+                            style="border-bottom-color: #2e2e2e"
+                        >
+                            <div class="form-group mb-3">
+                                <label class="form-label f-label" for="email"
+                                    >Customer</label
+                                >
+                                <div class="input-group">
+                                    <div
+                                        class="input-group-text"
+                                        style="padding: 0px"
+                                    >
+                                        <ng-select
+                                            [items]="listCustomer"
+                                            bindLabel="nama"
+                                            placeholder6="Pilih Customer"
+                                            name="customer"
+                                            appendTo="body"
+                                            (change)="onSelectedCustomer($event)"
+                                        ></ng-select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table
+                            class="table table-hover table-bordered table-responsive"
+                        >
+                            <thead class="thead-light text-white">
+                                <tr class="bg-primary">
+                                    <td rowspan="2" class="text-center">No</td>
+                                    <td rowspan="2" class="text-center">
+                                        Nama
+                                    </td>
+                                    <td
+                                        *ngIf="month && year"
+                                        [colSpan]="days"
+                                        class="text-center"
+                                    >
+                                        Periode: {{ month + " " + year }}
+                                    </td>
+                                    <td rowspan="2" class="text-center">
+                                        Total
+                                    </td>
+                                </tr>
+                                <tr class="bg-primary">
+                                    <td
+                                        class="vertical-middle text-center"
+                                        *ngFor="let day of listDays"
+                                    >
+                                        {{ day }}
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    *ngFor="
+                                        let total of listGrandTotal;
+                                        index as i
+                                    "
+                                >
+                                    <td colspan="2" style="font-weight: bold">
+                                        {{ total.nama }}
+                                    </td>
+                                    <td
+                                        class="vertical-middle"
+                                        *ngFor="let day of listDays; index as k"
+                                        style="font-weight: bold"
+                                    >
+                                        {{
+                                            total["tgl" + (k + 1)] == 0
+                                                ? ""
+                                                : (total["tgl" + (k + 1)]
+                                                  | currency: "Rp. ")
+                                        }}
+                                    </td>
+                                    <td class="vertical-middle">
+                                        {{
+                                            total.total == 0
+                                                ? ""
+                                                : (total.total
+                                                  | currency: "Rp. ")
+                                        }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody
+                                *ngFor="
+                                    let customers of listPenjualanCustomer;
+                                    index as i
+                                "
+                            >
+                                <tr
+                                    *ngFor="
+                                        let customer of customers
+                                            | slice: 0:customers.length;
+                                        index as j
+                                    "
+                                >
+                                    <td>{{ j + 1 }}</td>
+                                    <td class="vertical-middle">
+                                        {{ customer.nama }}
+                                    </td>
+                                    <td
+                                        class="vertical-middle"
+                                        *ngFor="let day of listDays; index as k"
+                                    >
+                                        {{
+                                            customer["tgl" + (k + 1)] == 0
+                                                ? ""
+                                                : (customer["tgl" + (k + 1)]
+                                                  | currency: "Rp. ")
+                                        }}
+                                    </td>
+                                    <td class="vertical-middle">
+                                        {{
+                                            customer.total == 0
+                                                ? ""
+                                                : (customer.total
+                                                  | currency: "Rp. ")
+                                        }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\Master\ItemController;
 use App\Http\Controllers\Api\Master\PromoController;
 use App\Http\Controllers\Api\Master\VoucherController;
 use App\Http\Controllers\Api\Master\DiskonController;
+use App\Http\Controllers\Api\Laporan\LaporanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -89,6 +90,21 @@ Route::prefix('v1')->group(function () {
     Route::post('/diskon', [DiskonController::class, 'store'])->middleware(['web', 'auth.api:diskon_create']);
     Route::put('/diskon', [DiskonController::class, 'update'])->middleware(['web', 'auth.api:diskon_update']);
     Route::delete('/diskon/{id}', [DiskonController::class, 'destroy'])->middleware(['web', 'auth.api:diskon_delete']);
+
+    /**
+     * Read laporan Menu
+     */
+    Route::get('/laporan-menu', [LaporanController::class, 'laporanMenu'])->middleware(['web', 'auth.api:laporan_menu_view']);
+
+    /**
+    * Report laporan Customer
+    */
+   Route::get('/laporan-customer', [LaporanController::class, 'laporanCustomer',])->middleware(['web', 'auth.api:laporan_menu_view'])   ;
+
+   /**
+    * Report rekap Penjualan
+    */
+   Route::get('/rekap-penjualan', [LaporanController::class, 'rekapPenjualan',])->middleware(['web', 'auth.api:laporan_penjualan_view']);;
 
     /**
      * Route khusus authentifikasi

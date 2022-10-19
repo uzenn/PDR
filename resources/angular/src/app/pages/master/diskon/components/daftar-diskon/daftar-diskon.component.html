@@ -21,7 +21,7 @@
                             <tr *ngFor="let user of listDiskon">
                                 <td>{{user.nama}}</td>
                                 <td *ngFor="let val of user.diskon">
-                                    <input type="checkbox"[checked]="val.status" (change)="onChecked(user, val)">
+                                    <input type="checkbox" [checked]="val.status" (change)="onChecked(user, val)">
                                 </td>
                             </tr>
                         </tbody>

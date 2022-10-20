@@ -40,7 +40,37 @@ export class FormRolesComponent implements OnInit {
                 update: boolean
                 delete: boolean
                 view: boolean
-            }
+            },
+            promo: {
+                create: boolean
+                update: boolean
+                delete: boolean
+                view: boolean
+            },
+            diskon: {
+                create: boolean
+                update: boolean
+                delete: boolean
+                view: boolean
+            },
+            voucher: {
+                create: boolean
+                update: boolean
+                delete: boolean
+                view: boolean
+            },
+            laporan_menu: {
+                view: boolean
+            },
+            laporan_customer: {
+                view: boolean
+            },
+            laporan_penjualan: {
+                view: boolean
+            },
+            laporan_dashboard: {
+                view: boolean
+            },
         },
     }
 
@@ -86,6 +116,36 @@ export class FormRolesComponent implements OnInit {
                     update: false,
                     delete: false,
                     view: false,
+                },
+                promo: {
+                    create: false,
+                    update: false,
+                    delete: false,
+                    view: false,
+                },
+                diskon: {
+                    create: false,
+                    update: false,
+                    delete: false,
+                    view: false,
+                },
+                voucher: {
+                    create: false,
+                    update: false,
+                    delete: false,
+                    view: false,
+                },
+                laporan_menu: {
+                    view: false
+                },
+                laporan_customer: {
+                    view: false
+                },
+                laporan_penjualan: {
+                    view: false
+                },
+                laporan_dashboard: {
+                    view: false
                 },
             },
         }

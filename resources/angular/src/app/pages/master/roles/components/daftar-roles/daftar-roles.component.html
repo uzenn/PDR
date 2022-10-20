@@ -19,14 +19,14 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <table datatable [dtOptions]="dtOptions" class="table table-hover">
+                    <table datatable [dtOptions]="dtOptions" class="table table-hover" id="dataTable">
                         <thead class="thead-light">
                             <tr>
                                 <td>Nama</td>
                                 <td width="90"></td>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody *ngIf="listRoles?.length != 0">
                             <tr *ngFor="let val of listRoles; index as i; trackBy:trackByIndex">
                                 <td class="vertical-middle">{{val.nama}}</td>
                                 <td class="vertical-middle text-right">
@@ -54,6 +54,6 @@
         </button>
     </div>
     <div class="modal-body">
-        <role-form [roleId]="modelId" (afterSave)="modal.close(); getRoles()"></role-form>
+        <role-form [roleId]="modelId" (afterSave)="modal.close(); refresh()"></role-form>
     </div>
 </ng-template>

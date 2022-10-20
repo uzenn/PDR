@@ -17,7 +17,7 @@ export class DaftarRolesComponent implements OnInit {
     dtInstance: Promise<DataTables.Api>;
     dtOptions: any;
 
-    listRoles: [];
+    listRoles: [] = [];
     titleModal: string;
     modelId: number;
 
@@ -44,6 +44,7 @@ export class DaftarRolesComponent implements OnInit {
     getRoles() {
         this.dtOptions = {
             serverSide: true,
+            pageLength: 5,
             processing: true,
             ordering: false,
             searching: false,
@@ -57,7 +58,7 @@ export class DaftarRolesComponent implements OnInit {
                     offset: dataTablesParameters.start,
                     limit: dataTablesParameters.length,
                 };
-                this.roleService.getRoles([]).subscribe((res: any) => {
+                this.roleService.getRoles({page}).subscribe((res: any) => {
                     this.listRoles = res.data.list;
 
                     callback({
@@ -75,6 +76,10 @@ export class DaftarRolesComponent implements OnInit {
         // }, (err: any) => {
         //     console.log(err);
         // });
+    }
+    refresh() {
+        this.getRoles();
+        this.reloadDataTable();
     }
 
     createRole(modal) {
@@ -102,7 +107,8 @@ export class DaftarRolesComponent implements OnInit {
             if (result.value) {
                 this.roleService.deleteRole(roleId).subscribe((res: any) => {
                     this.landaService.alertSuccess('Berhasil', res.message);
-                    this.getRoles();
+                    this.refresh();
+                    // $('#dataTable').DataTable().ajax.reload();
                 }, err => {
                     console.log(err);
                 });

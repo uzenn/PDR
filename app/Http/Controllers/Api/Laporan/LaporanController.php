@@ -71,4 +71,14 @@ class LaporanController extends Controller
         );
         return response()->success($laporan);
     }
+    public function dashboard(Request $request)
+    {
+        if (isset($request->filter)) {
+            $filter = json_decode($request->filter, true);
+            $laporan = $this->laporan->getDashboardGraf($filter);
+        } else {
+            $laporan = $this->laporan->getDashboard();
+        }
+        return response()->success($laporan);
+    }
 }

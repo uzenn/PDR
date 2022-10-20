@@ -15,6 +15,8 @@ import { LaporanMenuComponent } from "./laporan/menu/components/laporan-menu/lap
 import { LaporanCustomerComponent } from "./laporan/customer/components/laporan-customer/laporan-customer.component";
 import { NgSelectModule } from "@ng-select/ng-select";
 import { LaporanPenjualanComponent } from './laporan/penjualan/components/laporan-penjualan/laporan-penjualan.component';
+import { NgApexchartsModule } from "ng-apexcharts";
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     suppressScrollX: true,
@@ -38,6 +40,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         PerfectScrollbarModule,
         FormsModule,
         NgSelectModule,
+        NgApexchartsModule,
+        FontAwesomeModule
     ],
     providers: [
         {

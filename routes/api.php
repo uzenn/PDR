@@ -41,7 +41,7 @@ Route::prefix('v1')->group(function () {
     Route::put('/roles', [RoleController::class, 'update'])->middleware(['web', 'auth.api:roles_update']);
     Route::delete('/roles/{id}', [RoleController::class, 'destroy'])->middleware(['web', 'auth.api:roles_delete']);
 
-     /**
+    /**
      * CRUD customer
      */
     Route::get('/customers', [CustomerController::class, 'index'])->middleware(['web', 'auth.api:customer_view']);
@@ -51,7 +51,7 @@ Route::prefix('v1')->group(function () {
     Route::put('/customers', [CustomerController::class, 'update'])->middleware(['web', 'auth.api:customer_update']);
     Route::delete('/customers/{id}', [CustomerController::class, 'destroy'])->middleware(['web', 'auth.api:customer_delete']);
 
-     /**
+    /**
      * CRUD items / produk
      */
     Route::get('/items', [ItemController::class, 'index'])->middleware(['web', 'auth.api:item_view']);
@@ -97,14 +97,19 @@ Route::prefix('v1')->group(function () {
     Route::get('/laporan-menu', [LaporanController::class, 'laporanMenu'])->middleware(['web', 'auth.api:laporan_menu_view']);
 
     /**
-    * Report laporan Customer
-    */
-   Route::get('/laporan-customer', [LaporanController::class, 'laporanCustomer',])->middleware(['web', 'auth.api:laporan_menu_view'])   ;
+     * Report laporan Customer
+     */
+    Route::get('/laporan-customer', [LaporanController::class, 'laporanCustomer',])->middleware(['web', 'auth.api:laporan_customer_view']);
 
-   /**
-    * Report rekap Penjualan
-    */
-   Route::get('/rekap-penjualan', [LaporanController::class, 'rekapPenjualan',])->middleware(['web', 'auth.api:laporan_penjualan_view']);;
+    /**
+     * Report rekap Penjualan
+     */
+    Route::get('/rekap-penjualan', [LaporanController::class, 'rekapPenjualan',])->middleware(['web', 'auth.api:laporan_penjualan_view']);
+
+    /**
+     * Dashboard
+     */
+    Route::get('/dashboard', [LaporanController::class, 'dashboard',])->middleware(['web', 'auth.api:laporan_dashboard_view']);
 
     /**
      * Route khusus authentifikasi

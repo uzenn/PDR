@@ -410,4 +410,34 @@ class OrderModel extends Model
         $hasil = collect($tesQuery)->groupBy('id_order');
         return $dataOrder;
     }
+
+    /**
+     * Dashboard
+     */
+    public function queryDashboard()
+    {
+        $query = 'SELECT SUM(CASE WHEN tanggal = DATE_SUB(CURRENT_DATE(),INTERVAL 1 DAY) THEN total_bayar ELSE 0 END) as hasil_kemarin, 
+            SUM(CASE WHEN tanggal = CURRENT_DATE() THEN total_bayar ELSE 0 END) as hasil_hari_ini,
+            SUM(CASE WHEN MONTH(tanggal) = MONTH(CURRENT_DATE()) - 1 THEN total_bayar ELSE 0 END) as hasil_bulan_lalu,
+            SUM(CASE WHEN MONTH(tanggal) = MONTH(CURRENT_DATE()) THEN total_bayar ELSE 0 END) as hasil_bulan_ini
+            from t_order';
+        $data = DB::select($query);
+        return $data;
+    }
+
+    public function queryDashboardGraf(array $filter)
+    {
+        $year = $filter['tahun'];
+        $query = "SELECT";
+        for ($i = 0; $i < 12; $i++) {
+            $query .=
+                ' SUM(CASE WHEN MONTH(tanggal)=' .
+                ($i + 1) .
+                ' AND YEAR(tanggal)=' . $year . ' THEN total_bayar ELSE 0 END) as m' . ($i + 1);
+                if ($i != 12 - 1) $query .= ',';
+        }
+        $query .= ' FROM t_order';
+        $data = DB::select($query);
+        return $data;
+    }
 }

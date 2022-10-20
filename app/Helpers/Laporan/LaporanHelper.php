@@ -63,7 +63,6 @@ class LaporanHelper
         int $itemPerPage = 0,
         string $sort
     ) {
-        cal_days_in_month(CAL_GREGORIAN, $filter['id_bulan'], $filter['id_tahun']);
         return $this->orderModel->getPenjualanMenu(
             $filter,
             $itemPerPage,
@@ -87,5 +86,13 @@ class LaporanHelper
             $itemPerPage,
             $sort
         );
+    }
+    public function getDashboard()
+    {
+        return $this->orderModel->queryDashboard();
+    }
+    public function getDashboardGraf(array $filter)
+    {
+        return $this->orderModel->queryDashboardGraf($filter);
     }
 }

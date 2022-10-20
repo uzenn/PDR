@@ -1,1 +1,77 @@
-<p>dashboard works!</p>
+<div class="container-fluid">
+    <div class="row header-row">
+        <div class="col-4 col-sm-12 col-md-12 col-lg-12 col-xl-4">
+            <div class="row" *ngFor="let data of listData">
+                <div class="col-6">
+                    <div class="card header-card">
+                        <div class="card-body text-center statistics-info">
+                            <div>
+                                <div class="rounded-circle bg-primary mb-0 d-flex justify-content-center mx-auto align-items-center" style="width:75px; height:75px;">
+                                    <i class="fa fa-chart-line text-white"></i>
+                                </div>
+                                <h6 class="mt-4 mb-1">Hasil Kemarin</h6>
+                                <h2 class="mb-2 number-font">{{ data.hasil_kemarin }}</h2>
+                                <a class="card-link" href="#">View more</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card header-card">
+                        <div class="card-body text-center statistics-info">
+                            <div class="rounded-circle bg-primary mb-0 d-flex justify-content-center mx-auto align-items-center" style="width:75px; height:75px;">
+                                <i class="fa fa-money-bill text-white"></i>
+                            </div>
+                            <h6 class="mt-4 mb-1">Hasil Bulan Lalu<br></h6>
+                            <h2 class="mb-2 number-font">{{ data.hasil_bulan_lalu }}<br></h2><a class="card-link" href="#">View more</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card header-card">
+                        <div class="card-body text-center statistics-info">
+                            <div class="rounded-circle bg-primary mb-0 d-flex justify-content-center mx-auto align-items-center" style="width:75px; height:75px;">
+                                <i class="fab fa-codepen text-white"></i>
+                            </div>
+                            <h6 class="mt-4 mb-1">Hasil Hari ini</h6>
+                            <h2 class="mb-2 number-font">{{ data.hasil_hari_ini }}</h2><a class="card-link" href="#">View more</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card header-card">
+                        <div class="card-body text-center statistics-info">
+                            <div class="rounded-circle bg-primary mb-0 d-flex justify-content-center mx-auto align-items-center" style="width:75px; height:75px;">
+                                <i class="fa fa-briefcase text-white"></i>
+                            </div>
+                            <h6 class="mt-4 mb-1">Hasil Bulan Ini<br></h6>
+                            <h2 class="mb-2 number-font">{{ data.hasil_bulan_ini }}<br></h2><a class="card-link" href="#">View more</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-sm-12 col-md-12 col-lg-12 col-xl-8 col-xxl-8">
+            <div style="/*padding: 50px;*/padding-bottom: 0px;padding-top: 0px;">
+                <div class="card dashboard" style="margin-top: 0;">
+                    <div class="card-header bg-primary d-sm-flex d-md-flex d-lg-flex d-xl-flex d-xxl-flex align-items-sm-center align-items-md-center align-items-lg-center align-items-xl-center align-items-xxl-center d-flex justify-content-between align-item-center" style="/*border-top-left-radius: 1.5rem;*//*border-top-right-radius: 1.5rem;*/">
+                        <h2 style="color: #ffffff;font-size: 1.2rem;margin-top: 1%;"><strong>Grafik Penjualan</strong></h2>
+                        <div class="col-3 d-lg-flex d-xl-flex d-xxl-flex justify-content-lg-end justify-content-xl-end justify-content-xxl-end">
+                            <ng-select [items]="listYears" [(ngModel)]="filter.tahun" [clearable]="false" (change)="onSelectedYear()"></ng-select>
+                        </div>
+                    </div>
+                    <div class="card-body" *ngIf="grafData">
+                        <!-- <div style="display: block;height: 431px;width: 100%;padding: 15px;margin-top: 5px;"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div></div> -->
+                        <!-- <apx-chart [series]="series" [chart]="chart" [title]="title"></apx-chart> -->
+                        <apx-chart
+                            [series]="this.chartOptions.series"
+                            [chart]="this.chartOptions.chart"
+                            [xaxis]="this.chartOptions.xaxis"
+                            [dataLabels]="this.chartOptions.dataLabels"
+                        ></apx-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

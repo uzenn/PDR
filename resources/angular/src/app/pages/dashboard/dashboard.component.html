@@ -10,7 +10,7 @@
                                     <i class="fa fa-chart-line text-white"></i>
                                 </div>
                                 <h6 class="mt-4 mb-1">Hasil Kemarin</h6>
-                                <h2 class="mb-2 number-font">{{ data.hasil_kemarin }}</h2>
+                                <h2 class="mb-2 number-font">{{ data.hasil_kemarin | currency: "Rp. "}}</h2>
                                 <a class="card-link" href="#">View more</a>
                             </div>
                         </div>
@@ -23,7 +23,7 @@
                                 <i class="fa fa-money-bill text-white"></i>
                             </div>
                             <h6 class="mt-4 mb-1">Hasil Bulan Lalu<br></h6>
-                            <h2 class="mb-2 number-font">{{ data.hasil_bulan_lalu }}<br></h2><a class="card-link" href="#">View more</a>
+                            <h2 class="mb-2 number-font">{{ data.hasil_bulan_lalu | currency: "Rp. "}}<br></h2><a class="card-link" href="#">View more</a>
                         </div>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                                 <i class="fab fa-codepen text-white"></i>
                             </div>
                             <h6 class="mt-4 mb-1">Hasil Hari ini</h6>
-                            <h2 class="mb-2 number-font">{{ data.hasil_hari_ini }}</h2><a class="card-link" href="#">View more</a>
+                            <h2 class="mb-2 number-font">{{ data.hasil_hari_ini | currency: "Rp. "}}</h2><a class="card-link" href="#">View more</a>
                         </div>
                     </div>
                 </div>
@@ -45,13 +45,13 @@
                                 <i class="fa fa-briefcase text-white"></i>
                             </div>
                             <h6 class="mt-4 mb-1">Hasil Bulan Ini<br></h6>
-                            <h2 class="mb-2 number-font">{{ data.hasil_bulan_ini }}<br></h2><a class="card-link" href="#">View more</a>
+                            <h2 class="mb-2 number-font">{{ data.hasil_bulan_ini | currency: "Rp. "}}<br></h2><a class="card-link" href="#">View more</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-6 col-sm-12 col-md-12 col-lg-12 col-xl-8 col-xxl-8">
+        <div class="col-6 col-sm-12 col-md-12 col-lg-12 col-xl-8 col-xxl-8" *ngIf="grafData">
             <div style="/*padding: 50px;*/padding-bottom: 0px;padding-top: 0px;">
                 <div class="card dashboard" style="margin-top: 0;">
                     <div class="card-header bg-primary d-sm-flex d-md-flex d-lg-flex d-xl-flex d-xxl-flex align-items-sm-center align-items-md-center align-items-lg-center align-items-xl-center align-items-xxl-center d-flex justify-content-between align-item-center" style="/*border-top-left-radius: 1.5rem;*//*border-top-right-radius: 1.5rem;*/">
@@ -60,13 +60,14 @@
                             <ng-select [items]="listYears" [(ngModel)]="filter.tahun" [clearable]="false" (change)="onSelectedYear()"></ng-select>
                         </div>
                     </div>
-                    <div class="card-body" *ngIf="grafData">
+                    <div class="card-body">
                         <!-- <div style="display: block;height: 431px;width: 100%;padding: 15px;margin-top: 5px;"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div></div> -->
                         <!-- <apx-chart [series]="series" [chart]="chart" [title]="title"></apx-chart> -->
                         <apx-chart
                             [series]="this.chartOptions.series"
                             [chart]="this.chartOptions.chart"
                             [xaxis]="this.chartOptions.xaxis"
+                            [colors]="this.chartOptions.colors"
                             [dataLabels]="this.chartOptions.dataLabels"
                         ></apx-chart>
                     </div>

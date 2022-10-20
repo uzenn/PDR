@@ -27,6 +27,7 @@ export class DashboardComponent implements OnInit {
         chart: ApexChart;
         xaxis: ApexXAxis;
         title: ApexTitleSubtitle;
+        colors: string;
         dataLabels: ApexDataLabels;
     };
     constructor(
@@ -36,6 +37,7 @@ export class DashboardComponent implements OnInit {
         private router: Router
     ) {
         if (!this.authService.getToken()) {
+            this.authService.logout();
             this.router.navigate(["/auth/login"]);
             landaService.alertError(
                 "Mohon Maaf",
@@ -121,6 +123,7 @@ export class DashboardComponent implements OnInit {
                     "Desember",
                 ],
             },
+            colors: '#2C8DA2',
             dataLabels: {
                 enabled: false,
             },

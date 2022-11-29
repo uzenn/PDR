@@ -1,0 +1,74 @@
+.accordion-bg {
+    background-color: #f8f8fb;
+}
+.accent-bg {
+    width: 100%;
+    height: 95px;
+    top: 130px;
+    position: absolute;
+    background-color: #2C8BA4;
+    z-index: 0;
+}
+.card-pdr {
+    border: 2px solid transparent;
+}
+.card-pdr:hover {
+    border: 2px solid #009AAD;
+    cursor: pointer;
+}
+/* Customize Bootstrap card */
+.card-deck .card-body {
+    flex: 0 0 auto;
+}
+/* fix footer height */
+.card-footer {
+    flex: 1;
+}
+.card-border {
+    border: 1px solid #d9d9d9;
+}
+.card-border-bottom {
+    border-bottom: 1px solid #d9d9d9;
+}
+.card-bg {
+    background-color: #FFFFFF;
+    border: 2px solid transparent;
+}
+.card-bg:hover {
+    border: 2px solid #009AAD;
+    cursor: pointer;
+}
+.card-bg-dark {
+    background-color: #4a4a4a;
+}
+.card-bg-light {
+    background-color: #009AAD;
+}
+.card-bg-yellow {
+    background-color: #FBF3E7;
+    border: 2px solid #FBF3E7;
+}
+.btn-style {
+    width: 180px;
+}
+.tab-none {
+    display: none;
+}
+.nav-link {
+    width: 180px;
+}
+.nav-link.active {
+    color: white;
+    background-color: #216A7A;
+}
+
+// table
+th[rowspan="2"], td[rowspan="5"] {
+    vertical-align: middle;
+    text-align: center;
+}
+.img-thumb {
+    object-fit: cover;
+    width: 60px;
+    height: 60px;
+}

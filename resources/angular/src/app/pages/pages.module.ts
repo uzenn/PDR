@@ -17,6 +17,9 @@ import { NgSelectModule } from "@ng-select/ng-select";
 import { LaporanPenjualanComponent } from './laporan/penjualan/components/laporan-penjualan/laporan-penjualan.component';
 import { NgApexchartsModule } from "ng-apexcharts";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { PDRComponent } from './pdr/components/pdr/pdr.component';
+import { GoalPDRComponent } from './pdr/components/goal-pdr/goal-pdr.component';
+import { MySquadPDRComponent } from './pdr/components/my-squad-pdr/my-squad-pdr.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     suppressScrollX: true,
@@ -30,6 +33,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         LaporanMenuComponent,
         LaporanCustomerComponent,
         LaporanPenjualanComponent,
+        PDRComponent,
+        GoalPDRComponent,
+        MySquadPDRComponent,
     ],
     imports: [
         ReactiveFormsModule,

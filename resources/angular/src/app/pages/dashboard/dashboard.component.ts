@@ -36,14 +36,14 @@ export class DashboardComponent implements OnInit {
         private landaService: LandaService,
         private router: Router
     ) {
-        if (!this.authService.getToken()) {
-            this.authService.logout();
-            this.router.navigate(["/auth/login"]);
-            landaService.alertError(
-                "Mohon Maaf",
-                "Anda harus login terlebih dahulu"
-            );
-        }
+        // if (!this.authService.getToken()) {
+        //     this.authService.logout();
+        //     this.router.navigate(["/auth/login"]);
+        //     landaService.alertError(
+        //         "Mohon Maaf",
+        //         "Anda harus login terlebih dahulu"
+        //     );
+        // }
     }
 
     ngOnInit(): void {
